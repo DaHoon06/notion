@@ -12,7 +12,6 @@ export const getPage = async (pageId: string) => {
 }
 
 export const getDatabase = async () => {
-  console.log(databaseId)
   const response = await notion.databases.query({
     database_id: databaseId,
   });
