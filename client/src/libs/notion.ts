@@ -2,13 +2,16 @@ import {Client} from "@notionhq/client";
 
 const notion = new Client({
   auth: process.env.NOTION_ACCESS_TOKEN,
+  notionVersion: '2022-06-28'
 });
 const databaseId = process.env.NOTION_DATABASE;
 
 export const getPage = async (pageId: string) => {
-  return notion.pages.retrieve({
-    page_id: pageId
+  console.log(pageId)
+  const response = await notion.pages.retrieve({
+    page_id: pageId,
   });
+  console.log(response)
 }
 
 export const getDatabase = async () => {
