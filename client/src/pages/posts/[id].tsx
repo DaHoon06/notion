@@ -12,7 +12,7 @@ const PostDetail = () => {
   const postDetail = async () => {
     const {id} = router.query;
     const page_id = typeof id === 'string' ? id : '';
-    const post = await getPage(page_id);
+    const post = await getPage(page_id.toString());
     console.log(post)
   }
 
