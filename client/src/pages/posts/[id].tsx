@@ -6,14 +6,14 @@ const PostDetail = () => {
   const router = useRouter();
 
   useEffect(() => {
-    postDetail();
-  })
+    if (router.isReady) {
+      const {id} = router.query as string;
+      postDetail(id);
+    }
+  }, [router.isReady])
 
-  const postDetail = async () => {
-    const {id} = router.query;
-    const page_id = typeof id === 'string' ? id : '';
-    const post = await getPage(page_id.toString());
-    console.log(post)
+  const postDetail = async (id: string) => {
+    const post = await getPage(id);
   }
 
   return (

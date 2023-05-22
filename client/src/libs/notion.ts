@@ -7,7 +7,7 @@ const notion = new Client({
 const databaseId = process.env.NOTION_DATABASE;
 
 export const getPage = async (pageId: string) => {
-  console.log(pageId)
+  console.log(pageId, '?')
   const response = await notion.pages.retrieve({
     page_id: pageId,
   });
