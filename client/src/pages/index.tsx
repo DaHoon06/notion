@@ -26,7 +26,14 @@ const HomePage: NextPageWithLayout<Props> = (props) => {
 
 HomePage.getLayout = function layout(page) {
   return (
-    <Layout>
+    <Layout
+      metaConfig={{
+        title: '전다훈 롸',
+        description: '전다훈 롸롸',
+        type: 'website',
+        url: 'http://'
+      }}
+    >
       {page}
     </Layout>
   )
