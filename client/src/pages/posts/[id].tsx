@@ -1,10 +1,18 @@
 import {getPage} from "@libs/notion";
+import {useEffect, useState} from "react";
 
 const PostDetail = (props: any) => {
+  const [detail, setDetail] = useState<any>({});
+  const {post} = props;
+
+  useEffect(() => {
+    console.log(post)
+    setDetail(JSON.stringify(post));
+  }, [])
   return (
     <div>
       ?????????????????
-      {JSON.stringify(props.properties.title.title[0]?.text.content)}
+      {JSON.stringify(post)}
     </div>
   )
 }
@@ -20,7 +28,7 @@ export async function getStaticProps(context: any) {
   const { id } = context.params;
   const post = await getPage(id);
   return {
-    props: {...post}
+    props: {post}
   };
 }
 
