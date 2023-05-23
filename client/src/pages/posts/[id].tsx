@@ -3,7 +3,8 @@ import {getPage} from "@libs/notion";
 const PostDetail = (props: any) => {
   return (
     <div>
-      {JSON.stringify(props)}
+      ?????????????????
+      {JSON.stringify(props.properties.title.title[0]?.text.content)}
     </div>
   )
 }
