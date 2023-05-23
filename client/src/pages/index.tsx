@@ -1,53 +1,35 @@
 import {getDatabase} from "@libs/notion";
-import PostLists from "./posts/lists";
-import Link from "next/link";
+import {NextPageWithLayout} from "@pages/_app";
+import {PostLists} from "@/components/posts/PostLists";
+import Layout from "@/components/layout";
 
-interface Posts {
-
+type Props = {
+  posts: any
 }
-
-interface Props {
-  posts: any[]
-}
-
-//TODO: Post 인터페이스 정의....?? 할수있니?
-
-const Home = (props: Props) => {
-  const { posts = [] } = props;
-  return (
-    <div>
-      <PostLists />
-      {posts.map(post => (
-        <Link key={post.id} href={`/posts/${post.id}`}>
-          <div>
-            {JSON.stringify(post.id)} <br />
-            {JSON.stringify(post.properties.title.title[0]?.text.content)} <br />
-            {JSON.stringify(post.properties.description.rich_text[0]?.text.content)} <br />
-            {JSON.stringify(post.properties.date.date?.start)} <br />
-            {JSON.stringify(post.properties.slug.rich_text[0]?.text.content)} <br />
-            {JSON.stringify(post.properties.summary.rich_text[0]?.text.content)} <br />
-            {/* TODO 태그의 경우 배열로 나옴 */}
-            {JSON.stringify(post.properties.tags.multi_select[0]?.name)}
-            {JSON.stringify(post.properties.tags.multi_select[1]?.name)}
-            {JSON.stringify(post.properties.tags.multi_select[2]?.name)}
-            <br/>
-
-            {JSON.stringify(post.properties.author)} <br />
-            <hr />
-          </div>
-        </Link>
-      ))}
-    </div>
-  );
-};
 
 export async function getStaticProps() {
-  const posts = await getDatabase();
-  return {
-    props: {
-      posts
-    }
-  };
+  try {
+    const posts = await getDatabase();
+    return {
+      props: {
+        posts
+      }
+    };
+  } catch (e) {
+    throw e;
+  }
 }
 
-export default Home;
+const HomePage: NextPageWithLayout<Props> = (props) => {
+  return <PostLists posts={props.posts} />;
+}
+
+HomePage.getLayout = function layout(page) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  )
+}
+
+export default HomePage;

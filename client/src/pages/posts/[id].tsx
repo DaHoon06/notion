@@ -1,9 +1,6 @@
-import {useRouter} from "next/router";
 import {getPage} from "@libs/notion";
-import {useEffect, useState} from "react";
 
 const PostDetail = (props: any) => {
-  console.log(props)
   return (
     <div>
       {JSON.stringify(props)}
