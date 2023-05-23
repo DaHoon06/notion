@@ -4,7 +4,7 @@ const notion = new Client({
   auth: process.env.NOTION_ACCESS_TOKEN,
   notionVersion: '2022-06-28'
 });
-const databaseId = process.env.NOTION_DATABASE;
+
 
 export const getPage = async (pageId: string) => {
   return notion.pages.retrieve({
@@ -13,13 +13,16 @@ export const getPage = async (pageId: string) => {
 }
 
 export const getDatabase = async () => {
-  const response = await notion.databases.query({
-    database_id: databaseId,
-  });
-  return response.results;
+  const databaseId = process.env.NOTION_DATABASE;
+  if (databaseId) {
+    const response = await notion.databases.query({
+      database_id: databaseId,
+    });
+    return response.results;
+  }
 };
 
-export const getBlocks = async (blockId) => {
+export const getBlocks = async (blockId: string) => {
   const response = await notion.blocks.children.list({
     block_id: blockId,
     page_size: 50,

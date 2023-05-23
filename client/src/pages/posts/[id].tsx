@@ -8,14 +8,14 @@ const PostDetail = (props: any) => {
   )
 }
 
-export async function getStaticPaths({ query }) {
+export async function getStaticPaths({ query }: any) {
   return {
     paths: [],
     fallback: false,
   }
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps(context: any) {
   const { id } = context.params;
   const post = await getPage(id);
   return {
