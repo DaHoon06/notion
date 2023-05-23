@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import MetaConfig, {MetaConfigProps} from "@/components/header/config/MetaConfig";
+import {Header} from "@/components/header";
 
 type Props = {
   children: React.ReactNode
@@ -12,7 +13,8 @@ const Layout: React.FC<Props> = (props) => {
   return (
     <>
       <MetaConfig {...metaConfig} />
-      <main>
+      <Header />
+      <main className={'main'}>
         {children}
       </main>
     </>
