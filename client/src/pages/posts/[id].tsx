@@ -1,32 +1,29 @@
 import {useRouter} from "next/router";
 import {getPage} from "@libs/notion";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
-const PostDetail = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (router.isReady) {
-      const {id} = router.query as string;
-      postDetail(id);
-    }
-  }, [router.isReady])
-
-  const postDetail = async (id: string) => {
-    const post = await getPage(id);
-  }
-
+const PostDetail = (props: any) => {
+  console.log(props)
   return (
     <div>
-      TEST
+      {JSON.stringify(props)}
     </div>
   )
 }
-//
-// PostDetail.getInitialProps = async (postId) => {
-//   console.log(postId)
-//   const post = await getPage(postId);
-//   console.log(post)
-// }
+
+export async function getStaticPaths({ query }) {
+  return {
+    paths: [],
+    fallback: false,
+  }
+}
+
+export async function getStaticProps(context) {
+  const { id } = context.params;
+  const post = await getPage(id);
+  return {
+    props: {...post}
+  };
+}
 
 export default PostDetail;

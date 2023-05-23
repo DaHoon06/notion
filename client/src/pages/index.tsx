@@ -14,7 +14,6 @@ interface Props {
 
 const Home = (props: Props) => {
   const { posts = [] } = props;
-  console.log(posts)
   return (
     <div>
       <PostLists />
@@ -34,9 +33,6 @@ const Home = (props: Props) => {
             <br/>
 
             {JSON.stringify(post.properties.author)} <br />
-            {/*<h2>{JSON.stringify(post.properties.title.title[0]?.text.content)}</h2>*/}
-            {/*<hr />*/}
-            {/*<p>{JSON.stringify(post.properties.contents.rich_text[0]?.text.content)}</p>*/}
             <hr />
           </div>
         </Link>
@@ -45,9 +41,13 @@ const Home = (props: Props) => {
   );
 };
 
-Home.getInitialProps = async () => {
+export async function getStaticProps() {
   const posts = await getDatabase();
-  return { posts };
-};
+  return {
+    props: {
+      posts
+    }
+  };
+}
 
 export default Home;
